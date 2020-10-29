@@ -12,10 +12,10 @@ const {expect} = chai;
 const tls = require('tls');
 tls.DEFAULT_ECDH_CURVE = 'auto';
 
-const {VeresOneClient} = require('../lib/index');
+const {CosmosClient} = require('../lib/index');
 
 const TEST_HOSTNAME = 'ashburn.capybara.veres.one';
-const TEST_DID = 'did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
+const TEST_DID = 'did:cosm:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
 const TEST_DID_RESULT = require('./dids/ashburn.capybara.did.json');
 const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
 const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
@@ -25,7 +25,7 @@ describe('web ledger client', () => {
   let client;
 
   beforeEach(() => {
-    client = new VeresOneClient({
+    client = new CosmosClient({
       mode: 'test', hostname: TEST_HOSTNAME
     });
   });
@@ -70,10 +70,10 @@ describe('web ledger client', () => {
           "@context": [
             "https://w3id.org/did/v0.11", "https://w3id.org/veres-one/v1"
           ],
-          "id": "did:v1:test:nym:" +
+          "id": "did:cosm:test:nym:" +
             "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#authn-1",
           "type": "Ed25519VerificationKey2018",
-          "controller": "did:v1:test:" +
+          "controller": "did:cosm:test:" +
             "nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
           "publicKeyBase58": "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX"
         };
@@ -97,7 +97,7 @@ describe('web ledger client', () => {
           "type": "CreateWebLedgerRecord",
           "record": {
             "@context": "https://w3id.org/veres-one/v1",
-            "id": "did:v1:test:uuid:ad33d59b630f44d49bdfb8266d4a243e"
+            "id": "did:cosm:test:uuid:ad33d59b630f44d49bdfb8266d4a243e"
           }
         };
         /* eslint-enable quote, quote-props */

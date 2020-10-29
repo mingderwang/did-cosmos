@@ -1,13 +1,13 @@
 {
-  "@context": "https://w3id.org/webledger/v1",
+  "@context": "https://w3id.org/webledger/cosm",
   "id": "https://ashburn.capybara.veres.one/ledger-agents/72fdcd6a-5861-4307-ba3d-cbb72509533c",
   "latestConfigEvent": {
-    "@context": "https://w3id.org/webledger/v1",
+    "@context": "https://w3id.org/webledger/cosm",
     "type": "WebLedgerConfigurationEvent",
     "ledgerConfiguration": {
-      "@context": "https://w3id.org/webledger/v1",
+      "@context": "https://w3id.org/webledger/cosm",
       "type": "WebLedgerConfiguration",
-      "ledger": "did:v1:nym:z6MkoZx7aYawTfgmqxQHF7hjgiZxyZcAdoG26GJbPctBmsE2",
+      "ledger": "did:cosm:nym:z6MkoZx7aYawTfgmqxQHF7hjgiZxyZcAdoG26GJbPctBmsE2",
       "consensusMethod": "Continuity2017",
       "electorSelectionMethod": {
         "type": "MostRecentParticipants"
@@ -15,12 +15,12 @@
       "sequence": 0,
       "ledgerConfigurationValidator": [
         {
-          "type": "VeresOneValidator2017"
+          "type": "CosmosValidator2017"
         }
       ],
       "operationValidator": [
         {
-          "type": "VeresOneValidator2017",
+          "type": "CosmosValidator2017",
           "validatorFilter": [
             {
               "type": "ValidatorFilterByType",
@@ -35,7 +35,7 @@
       "proof": {
         "type": "Ed25519Signature2018",
         "created": "2019-02-05T23:44:35Z",
-        "verificationMethod": "did:v1:nym:z6MkoZx7aYawTfgmqxQHF7hjgiZxyZcAdoG26GJbPctBmsE2#z6MkoZx7aYawTfgmqxQHF7hjgiZxyZcAdoG26GJbPctBmsE2",
+        "verificationMethod": "did:cosm:nym:z6MkoZx7aYawTfgmqxQHF7hjgiZxyZcAdoG26GJbPctBmsE2#z6MkoZx7aYawTfgmqxQHF7hjgiZxyZcAdoG26GJbPctBmsE2",
         "proofPurpose": "assertionMethod",
         "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..-osYsItkRsMRPTcraCu-Sh3n_4cQHoYHXlY9gYuT8abtg8ZBK8qSQedpSN790IQZci09pQGyQAYaFe-dRrbYBg"
       }

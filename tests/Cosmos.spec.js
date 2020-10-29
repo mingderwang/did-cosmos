@@ -9,12 +9,12 @@ chai.should();
 
 const {expect} = chai;
 
-const {VeresOne} = require('..');
+const {Cosmos} = require('..');
 
-const TEST_DID = 'did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
+const TEST_DID = 'did:cosm:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
 const UNREGISTERED_NYM =
-  'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt';
-const UNREGISTERED_UUID = 'did:v1:test:2G7RmkvGrBX5jf3M';
+  'did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt';
+const UNREGISTERED_UUID = 'did:cosm:test:2G7RmkvGrBX5jf3M';
 const UNREGISTERED_DOC = require('./dids/did-nym-unregistered.json');
 const TEST_DID_RESULT = require('./dids/ashburn.capybara.did.json');
 const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
@@ -22,16 +22,16 @@ const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
 const TICKET_SERVICE_PROOF = require('./dids/ticket-service-proof.json');
 
 describe('methods/veres-one', () => {
-  let v1;
+  let cosm;
 
   beforeEach(() => {
-    v1 = new VeresOne({mode: 'test'});
+    cosm = new Cosmos({mode: 'test'});
   });
 
   describe('constructor', () => {
     it('should set mode and method', () => {
-      expect(v1.mode).to.equal('test');
-      expect(v1.method).to.equal('v1');
+      expect(cosm.mode).to.equal('test');
+      expect(cosm.method).to.equal('cosm');
     });
   });
 
@@ -48,7 +48,7 @@ describe('methods/veres-one', () => {
 
       _nockLedgerAgentStatus();
 
-      const didDoc = await v1.get({did: TEST_DID});
+      const didDoc = await cosm.get({did: TEST_DID});
       expect(didDoc.id).to.equal(TEST_DID);
     });
 
@@ -65,7 +65,7 @@ describe('methods/veres-one', () => {
 
       _nockLedgerAgentStatus();
 
-      const result = await v1.get({did: UNREGISTERED_NYM});
+      const result = await cosm.get({did: UNREGISTERED_NYM});
       expect(JSON.stringify(result.doc, null, 2))
         .to.eql(JSON.stringify(UNREGISTERED_DOC, null, 2));
     });
@@ -84,8 +84,8 @@ describe('methods/veres-one', () => {
       _nockLedgerAgentStatus();
 
       // eslint-disable-next-line max-len
-      const unregisteredKey = 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt';
-      const result = await v1.get({did: unregisteredKey});
+      const unregisteredKey = 'did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt';
+      const result = await cosm.get({did: unregisteredKey});
 
       expect(result.doc).to.eql({
         '@context': [
@@ -93,10 +93,10 @@ describe('methods/veres-one', () => {
           'https://w3id.org/veres-one/v1'
         ],
         // eslint-disable-next-line max-len
-        id: 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt',
+        id: 'did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt',
         type: 'Ed25519VerificationKey2018',
         // eslint-disable-next-line max-len
-        controller: 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt',
+        controller: 'did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt',
         publicKeyBase58: 'QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW'
       });
     });
@@ -117,10 +117,10 @@ describe('methods/veres-one', () => {
       let error;
       let result;
       // eslint-disable-next-line max-len
-      const nonInvokeKey = 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkrhVjBzL7pjojt3nYxSbNkTkZuCyRh6izYEUJL4pyPbB6';
+      const nonInvokeKey = 'did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkrhVjBzL7pjojt3nYxSbNkTkZuCyRh6izYEUJL4pyPbB6';
 
       try {
-        result = await v1.get({did: nonInvokeKey});
+        result = await cosm.get({did: nonInvokeKey});
       } catch(e) {
         error = e;
       }
@@ -145,7 +145,7 @@ describe('methods/veres-one', () => {
       let error;
       let result;
       try {
-        result = await v1.get({did: UNREGISTERED_UUID});
+        result = await cosm.get({did: UNREGISTERED_UUID});
       } catch(e) {
         error = e;
       }
@@ -157,10 +157,10 @@ describe('methods/veres-one', () => {
 
   describe('generate', () => {
     it('should generate a non-test DID in dev mode', async () => {
-      v1.mode = 'dev';
-      const didDocument = await v1.generate();
+      cosm.mode = 'dev';
+      const didDocument = await cosm.generate();
       expect(didDocument.id)
-        .to.match(/^did:v1:nym:z.*/);
+        .to.match(/^did:cosm:nym:z.*/);
     });
 
     it('should generate protected RSA nym-based DID Document', async () => {
@@ -168,9 +168,9 @@ describe('methods/veres-one', () => {
         passphrase: 'foobar',
         keyType: 'RsaVerificationKey2018'
       };
-      const didDocument = await v1.generate(nymOptions);
+      const didDocument = await cosm.generate(nymOptions);
       expect(didDocument.id)
-        .to.match(/^did:v1:test:nym:z.*/);
+        .to.match(/^did:cosm:test:nym:z.*/);
       const authPublicKey = didDocument.doc.authentication[0];
       const publicKeyPem = authPublicKey.publicKeyPem;
       expect(publicKeyPem)
@@ -184,10 +184,10 @@ describe('methods/veres-one', () => {
 
     it('should generate protected EDD nym-based DID Document', async () => {
       const nymOptions = {passphrase: 'foobar'};
-      const didDocument = await v1.generate(nymOptions);
+      const didDocument = await cosm.generate(nymOptions);
 
       expect(didDocument.id)
-        .to.match(/^did:v1:test:nym:z.*/);
+        .to.match(/^did:cosm:test:nym:z.*/);
       const authPublicKey = didDocument.doc.authentication[0];
       const publicKeyBase58 = authPublicKey.publicKeyBase58;
       expect(publicKeyBase58).to.exist;
@@ -206,9 +206,9 @@ describe('methods/veres-one', () => {
         passphrase: null,
         keyType: 'RsaVerificationKey2018'
       };
-      const didDocument = await v1.generate(nymOptions);
+      const didDocument = await cosm.generate(nymOptions);
 
-      expect(didDocument.id).to.match(/^did:v1:test:nym:.*/);
+      expect(didDocument.id).to.match(/^did:cosm:test:nym:.*/);
       const authPublicKey = didDocument.doc.authentication[0];
       expect(authPublicKey.publicKeyPem)
         .to.have.string('-----BEGIN PUBLIC KEY-----');
@@ -221,9 +221,9 @@ describe('methods/veres-one', () => {
 
     it('should generate unprotected EDD nym-based DID Document', async () => {
       const nymOptions = {passphrase: null};
-      const didDocument = await v1.generate(nymOptions);
+      const didDocument = await cosm.generate(nymOptions);
 
-      expect(didDocument.id).to.match(/^did:v1:test:nym:.*/);
+      expect(didDocument.id).to.match(/^did:cosm:test:nym:.*/);
       const authPublicKey = didDocument.doc.authentication[0];
       expect(authPublicKey.publicKeyBase58).to.exist;
 
@@ -236,9 +236,9 @@ describe('methods/veres-one', () => {
         didType: 'uuid',
         keyType: 'RsaVerificationKey2018'
       };
-      const didDocument = await v1.generate(uuidOptions);
+      const didDocument = await cosm.generate(uuidOptions);
 
-      expect(didDocument.id).to.match(/^did:v1:test:uuid:.*/);
+      expect(didDocument.id).to.match(/^did:cosm:test:uuid:.*/);
     });
 
     it('should generate protected ed25519 nym-based DID Doc', async () => {
@@ -246,11 +246,11 @@ describe('methods/veres-one', () => {
         keyType: 'Ed25519VerificationKey2018',
         passphrase: 'foobar'
       };
-      const didDocument = await v1.generate(nymOptions);
+      const didDocument = await cosm.generate(nymOptions);
       const did = didDocument.id;
 
-      expect(did).to.match(/^did:v1:test:nym:z.*/);
-      const fingerprint = did.replace('did:v1:test:nym:', '');
+      expect(did).to.match(/^did:cosm:test:nym:z.*/);
+      const fingerprint = did.replace('did:cosm:test:nym:', '');
 
       const invokePublicKey = didDocument.doc.capabilityInvocation[0];
 
@@ -274,11 +274,11 @@ describe('methods/veres-one', () => {
         keyType: 'Ed25519VerificationKey2018',
         passphrase: null
       };
-      const didDocument = await v1.generate(nymOptions);
+      const didDocument = await cosm.generate(nymOptions);
       const did = didDocument.id;
 
-      expect(did).to.match(/^did:v1:test:nym:z.*/);
-      const fingerprint = did.replace('did:v1:test:nym:', '');
+      expect(did).to.match(/^did:cosm:test:nym:z.*/);
+      const fingerprint = did.replace('did:cosm:test:nym:', '');
 
       const invokePublicKey = didDocument.doc.capabilityInvocation[0];
       const invokeKey = didDocument.keys[invokePublicKey.id];
@@ -304,15 +304,15 @@ describe('methods/veres-one', () => {
     });
 
     it('should generate a key id based on a did', async () => {
-      key.id = await v1.computeKeyId({did: 'did:v1:test:uuid:abcdef', key});
+      key.id = await cosm.computeKeyId({did: 'did:cosm:test:uuid:abcdef', key});
 
-      expect(key.id).to.equal('did:v1:test:uuid:abcdef#12345');
+      expect(key.id).to.equal('did:cosm:test:uuid:abcdef#12345');
     });
 
     it('should generate a cryptonym key id based on fingerprint', async () => {
-      key.id = await v1.computeKeyId({key, didType: 'nym', mode: 'live'});
+      key.id = await cosm.computeKeyId({key, didType: 'nym', mode: 'live'});
 
-      expect(key.id).to.equal('did:v1:nym:12345#12345');
+      expect(key.id).to.equal('did:cosm:nym:12345#12345');
     });
   });
 
@@ -326,11 +326,11 @@ describe('methods/veres-one', () => {
       _nockTicketService();
       _nockOperationService();
 
-      const didDocument = await v1.generate();
+      const didDocument = await cosm.generate();
       let error;
       let result;
       try {
-        result = await v1.register({didDocument});
+        result = await cosm.register({didDocument});
       } catch(e) {
         error = e;
       }
@@ -341,7 +341,7 @@ describe('methods/veres-one', () => {
 
   describe.skip('attachDelegationProof', () => {
     it('should attach ocap-ld delegation proof to an operation', async () => {
-      let didDocument = await v1.generate({
+      let didDocument = await cosm.generate({
         passphrase: null, keyType: 'RsaVerificationKey2018'
       });
 
@@ -350,7 +350,7 @@ describe('methods/veres-one', () => {
       const {privateKeyPem} = await didDocument.keys[delegationPublicKey.id]
         .export();
 
-      didDocument = await v1.attachDelegationProof({
+      didDocument = await cosm.attachDelegationProof({
         didDocument,
         creator,
         privateKeyPem
@@ -367,18 +367,18 @@ describe('methods/veres-one', () => {
 
   describe.skip('attachInvocationProof', () => {
     it('should attach ld-ocap invocation proof to an operation', async () => {
-      const didDocument = await v1.generate({
+      const didDocument = await cosm.generate({
         passphrase: null, keyType: 'RsaVerificationKey2018'
       });
 
-      let operation = v1.client.wrap({didDocument: didDocument.doc});
+      let operation = cosm.client.wrap({didDocument: didDocument.doc});
       const invokePublicKey = didDocument.doc.capabilityInvocation[0];
       const creator = invokePublicKey.id;
 
       const {privateKeyPem} = await didDocument.keys[invokePublicKey.id]
         .export();
 
-      operation = await v1.attachInvocationProof({
+      operation = await cosm.attachInvocationProof({
         operation,
         capability: didDocument.id,
         capabilityAction: operation.type,
@@ -387,7 +387,7 @@ describe('methods/veres-one', () => {
       });
 
       expect(operation.type).to.equal('CreateWebLedgerRecord');
-      expect(operation.record.id).to.match(/^did:v1:test:nym:.*/);
+      expect(operation.record.id).to.match(/^did:cosm:test:nym:.*/);
       expect(operation.record.authentication[0].publicKeyPem)
         .to.have.string('-----BEGIN PUBLIC KEY-----');
       expect(operation.proof).to.exist;

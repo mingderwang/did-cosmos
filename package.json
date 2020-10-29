@@ -1,24 +1,25 @@
 {
-  "name": "did-veres-one",
+  "name": "did-cosmos",
   "version": "12.1.2-0",
-  "description": "A Decentralized Identifier utility library for Veres One",
+  "description": "A Decentralized Identifier utility library for Cosmos-SDK x/did module",
   "main": "lib/index.js",
   "files": [
     "lib/"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/veres-one/did-veres-one.git"
+    "url": "https://github.com/mingderwang/did-cosmos.git"
   },
   "author": {
     "name": "Digital Bazaar, Inc.",
     "email": "support@digitalbazaar.com",
-    "url": "http://digitalbazaar.com"
+    "url": "http://digitalbazaar.com",
+    "modified": "mingderwang@gmail.com"
   },
   "bugs": {
-    "url": "https://github.com/veres-one/did-veres-one/issues"
+    "url": "https://github.com/mingderwang/did-cosmos/issues"
   },
-  "homepage": "https://github.com/veres-one/did-veres-one",
+  "homepage": "https://github.com/mingderwang/did-cosmos-one",
   "scripts": {
     "mocha": "mocha ./tests/*.spec.js --opts ./tests/mocha.opts",
     "test": "npm run mocha",

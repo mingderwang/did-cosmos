@@ -12,21 +12,21 @@ const {expect} = chai;
 const {LDKeyPair} = require('crypto-ld');
 const constants = require('../lib/constants');
 
-const {VeresOneDidDoc} = require('../lib/index');
+const {CosmosDidDoc} = require('../lib/index');
 
-describe('VeresOneDidDoc', () => {
+describe('CosmosDidDoc', () => {
   describe('constructor', () => {
     it('should init the doc with context', () => {
-      const didDoc = new VeresOneDidDoc();
+      const didDoc = new CosmosDidDoc();
 
       expect(didDoc.doc).to.have.property('@context');
     });
 
     it('should init the id from the document', () => {
-      const testId = 'did:v1:test:abc';
+      const testId = 'did:cosm:test:abc';
       const testDidDoc = {id: testId};
 
-      const didDoc = new VeresOneDidDoc({doc: testDidDoc});
+      const didDoc = new CosmosDidDoc({doc: testDidDoc});
       expect(didDoc.id).to.equal(testId);
     });
   });
@@ -37,13 +37,13 @@ describe('VeresOneDidDoc', () => {
     const mode = 'dev';
 
     beforeEach(() => {
-      didDoc = new VeresOneDidDoc({keyType});
+      didDoc = new CosmosDidDoc({keyType});
     });
 
     it('should init the did id', async () => {
       await didDoc.init({mode});
 
-      expect(didDoc.id.startsWith('did:v1'));
+      expect(didDoc.id.startsWith('did:cosm'));
     });
 
     it('should init the authn/authz keys', async () => {
@@ -69,9 +69,9 @@ describe('VeresOneDidDoc', () => {
 
     it('should generate a uuid type did', async () => {
       const didType = 'uuid';
-      const did = VeresOneDidDoc.generateDid({didType, mode: 'test'});
+      const did = CosmosDidDoc.generateDid({didType, mode: 'test'});
 
-      expect(did).to.match(/^did:v1:test:uuid:.*/);
+      expect(did).to.match(/^did:cosm:test:uuid:.*/);
     });
 
     it('should generate a nym type did', async () => {
@@ -81,18 +81,18 @@ describe('VeresOneDidDoc', () => {
       };
 
       const key = await LDKeyPair.generate(keyOptions);
-      const did = VeresOneDidDoc.generateDid({key, didType, mode: 'test'});
+      const did = CosmosDidDoc.generateDid({key, didType, mode: 'test'});
 
-      expect(did).to.match(/^did:v1:test:nym:.*/);
+      expect(did).to.match(/^did:cosm:test:nym:.*/);
     });
   });
 
   describe('validateDid', () => {
-    const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
+    const exampleDoc = require('./dids/did-cosm-test-nym-eddsa-example.json');
     let didDoc;
 
     beforeEach(() => {
-      didDoc = new VeresOneDidDoc();
+      didDoc = new CosmosDidDoc();
     });
 
     it('should throw on invalid/malformed DID', async () => {
@@ -105,12 +105,12 @@ describe('VeresOneDidDoc', () => {
       expect(result.error).to.exist;
       result.error.message.should.match(/^Invalid DID format/);
 
-      didDoc.doc.id = 'did:v1:uuid:'; // empty specific id
+      didDoc.doc.id = 'did:cosm:uuid:'; // empty specific id
       result = await didDoc.validateDid();
       result.valid.should.be.false;
       result.error.message.should.match(/^Invalid DID format/);
 
-      didDoc.doc.id = 'did:v1:uuid:123%abc'; // invalid character
+      didDoc.doc.id = 'did:cosm:uuid:123%abc'; // invalid character
       result = await didDoc.validateDid();
       result.valid.should.be.false;
       result.error.message.should.match(
@@ -118,11 +118,11 @@ describe('VeresOneDidDoc', () => {
     });
 
     it.skip('should throw when test: not present in DID in test mode', () => {
-      didDoc.doc.id = 'did:v1:test:uuid:1234';
+      didDoc.doc.id = 'did:cosm:test:uuid:1234';
       (async () => await didDoc.validateDid({mode: 'test'}))
         .should.not.throw();
 
-      didDoc.doc.id = 'did:v1:uuid:1234';
+      didDoc.doc.id = 'did:cosm:uuid:1234';
       (async () => await didDoc.validateDid({mode: 'test'}))
         .should.throw(/^DID is invalid for test mode/);
     });
@@ -130,10 +130,10 @@ describe('VeresOneDidDoc', () => {
     it.skip(
       'should throw when test: is present in DID not in test mode',
       async () => {
-        didDoc.doc.id = 'did:v1:uuid:1234';
+        didDoc.doc.id = 'did:cosm:uuid:1234';
         (async () => await didDoc.validateDid({env: 'live'}))
           .should.not.throw();
-        didDoc.doc.id = 'did:v1:test:uuid:1234';
+        didDoc.doc.id = 'did:cosm:test:uuid:1234';
         (async () => await didDoc.validateDid({env: 'live'}))
           .should.throw(/^Test DID is invalid for/);
       });
@@ -141,20 +141,20 @@ describe('VeresOneDidDoc', () => {
     it.skip(
       'should throw if key is not provided for verifying cryptonym',
       () => {
-        didDoc.doc.id = 'did:v1:nym:z1234';
+        didDoc.doc.id = 'did:cosm:nym:z1234';
         (async () => didDoc.validateDid())
           .should.throw(/Public key is required for cryptonym verification/);
       });
 
     it.skip('should validate against the correct invoker key', async () => {
-      const didDoc = new VeresOneDidDoc({doc: exampleDoc});
+      const didDoc = new CosmosDidDoc({doc: exampleDoc});
       const invokeKey = didDoc.doc.capabilityInvocation[0].publicKey[0];
       const keyPair = await LDKeyPair.from(invokeKey);
       await didDoc.validateDid({keyPair, mode: 'test'});
     });
 
     it.skip('throws error if validating against incorrect key', async () => {
-      const didDoc = new VeresOneDidDoc({doc: exampleDoc});
+      const didDoc = new CosmosDidDoc({doc: exampleDoc});
       const authKeyPair = await LDKeyPair.from(
         didDoc.doc.authentication[0].publicKey[0]
       );
@@ -171,7 +171,7 @@ describe('VeresOneDidDoc', () => {
     let didDoc;
 
     before(async () => {
-      didDoc = new VeresOneDidDoc();
+      didDoc = new CosmosDidDoc();
       await didDoc.init({mode: 'test', passphrase: null});
     });
 
@@ -209,10 +209,10 @@ describe('VeresOneDidDoc', () => {
   });
 
   describe('key operations', () => {
-    const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
+    const exampleDoc = require('./dids/did-cosm-test-nym-eddsa-example.json');
     const exampleKeys = require(
-      './dids/did-v1-test-nym-eddsa-example-keys.json');
-    const did = 'did:v1:test:nym:' +
+      './dids/did-cosm-test-nym-eddsa-example-keys.json');
+    const did = 'did:cosm:test:nym:' +
       'z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3';
     const keyId = did + '#authn-1';
 
@@ -224,12 +224,12 @@ describe('VeresOneDidDoc', () => {
 
     describe('exportKeys', () => {
       it('should return an empty object when no keys are present', async () => {
-        const didDoc = new VeresOneDidDoc();
+        const didDoc = new CosmosDidDoc();
         expect(await didDoc.exportKeys()).to.eql({});
       });
 
       it('should return a hashmap of keys by key id', async () => {
-        const didDoc = new VeresOneDidDoc();
+        const didDoc = new CosmosDidDoc();
         await didDoc.init({mode: 'test', passphrase: null});
 
         const keys = await didDoc.exportKeys();
@@ -242,7 +242,7 @@ describe('VeresOneDidDoc', () => {
 
     describe('importKeys', () => {
       it('should import keys', async () => {
-        const didDoc = new VeresOneDidDoc({doc});
+        const didDoc = new CosmosDidDoc({doc});
 
         expect(didDoc.keys).to.eql({}); // no keys
 
@@ -257,7 +257,7 @@ describe('VeresOneDidDoc', () => {
 
     describe('addKey/removeKey', () => {
       it('should add/remove a public key node from the DID Doc', async () => {
-        const didDoc = new VeresOneDidDoc({doc});
+        const didDoc = new CosmosDidDoc({doc});
         await didDoc.importKeys(exampleKeys);
 
         const authKeys = didDoc.doc[constants.PROOF_PURPOSES.authentication];
@@ -282,7 +282,7 @@ describe('VeresOneDidDoc', () => {
 
     describe('findKey/findVerificationMethod', () => {
       it('should find key and proof purpose for a key id', () => {
-        const didDoc = new VeresOneDidDoc({doc});
+        const didDoc = new CosmosDidDoc({doc});
 
         const {proofPurpose, key} = didDoc.findKey({id: keyId});
         expect(proofPurpose).to.equal('authentication');
@@ -290,7 +290,7 @@ describe('VeresOneDidDoc', () => {
       });
 
       it('should return falsy values if that key id is not found', () => {
-        const didDoc = new VeresOneDidDoc({doc});
+        const didDoc = new CosmosDidDoc({doc});
         const {proofPurpose, key} = didDoc.findKey({id: 'invalid key id'});
         expect(proofPurpose).to.be.undefined;
         expect(key).to.be.undefined;
@@ -299,7 +299,7 @@ describe('VeresOneDidDoc', () => {
 
     describe('rotateKey', () => {
       it('should rotate a key - remove old one, add new', async () => {
-        const didDoc = new VeresOneDidDoc({doc});
+        const didDoc = new CosmosDidDoc({doc});
 
         const newKey = await didDoc.rotateKey({id: keyId});
 
@@ -314,7 +314,7 @@ describe('VeresOneDidDoc', () => {
       });
 
       it('should throw an error if key to be rotated not present', async () => {
-        const didDoc = new VeresOneDidDoc({doc});
+        const didDoc = new CosmosDidDoc({doc});
         let thrownError;
 
         try {
@@ -330,12 +330,12 @@ describe('VeresOneDidDoc', () => {
   });
 
   describe('service endpoints', () => {
-    const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
+    const exampleDoc = require('./dids/did-cosm-test-nym-eddsa-example.json');
     let didDoc;
 
     beforeEach(() => {
       const doc = JSON.parse(JSON.stringify(exampleDoc)); // clone
-      didDoc = new VeresOneDidDoc({doc});
+      didDoc = new CosmosDidDoc({doc});
     });
 
     it('should add a service to the did doc', () => {
@@ -378,7 +378,7 @@ describe('VeresOneDidDoc', () => {
   describe('toJSON', () => {
     const keyType = 'Ed25519VerificationKey2018';
     it('should only serialize the document, no other properties', () => {
-      const didDoc = new VeresOneDidDoc({keyType});
+      const didDoc = new CosmosDidDoc({keyType});
 
       expect(JSON.stringify(didDoc))
         .to.equal('{"@context":["https://w3id.org/did/v0.11",' +

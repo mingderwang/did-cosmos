@@ -1,3 +1,7 @@
+# did-cosmos ChangeLog
+
+## 0.12.1.1 - 2020-10-29
+
 # did-veres-one ChangeLog
 
 ## 12.1.1 - 2020-04-29
@@ -88,7 +92,7 @@
 ## 7.0.0 - 2019-08-01
 
 ### Changed
-- **BREAKING**: Uses `v1.driver(options)` API instead of `v1.veres()`.
+- **BREAKING**: Uses `cosm.driver(options)` API instead of `cosm.veres()`.
 
 ## 6.0.0 - 2019-07-20
 
@@ -123,8 +127,8 @@ browser compatible release will be made soon.
 ### Changed
 - **BREAKING**: Replace "cryptographic suites" with flat verification methods
   like Ed25519VerificationKey2018.
-- **BREAKING**: Removed injector usage, removed related `v1.use()` notation.
-- Extracted VeresOne specific code from `did-io` into this lib.
+- **BREAKING**: Removed injector usage, removed related `cosm.use()` notation.
+- Extracted Cosmos specific code from `did-io` into this lib.
 
 ## 2.0.0 - 2018-09-19
 
