@@ -72,7 +72,7 @@ describe('web ledger client', () => {
           ],
           "id": "did:cosm:test:nym:" +
             "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#authn-1",
-          "type": "Ed25519VerificationKey2018",
+          "type": "tendermint/PubKeyEd25519",
           "controller": "did:cosm:test:" +
             "nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
           "publicKeyBase58": "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX"

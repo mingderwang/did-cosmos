@@ -94,7 +94,7 @@ describe('methods/veres-one', () => {
         ],
         // eslint-disable-next-line max-len
         id: 'did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt',
-        type: 'Ed25519VerificationKey2018',
+        type: 'tendermint/PubKeyEd25519',
         // eslint-disable-next-line max-len
         controller: 'did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt',
         publicKeyBase58: 'QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW'
@@ -243,7 +243,7 @@ describe('methods/veres-one', () => {
 
     it('should generate protected ed25519 nym-based DID Doc', async () => {
       const nymOptions = {
-        keyType: 'Ed25519VerificationKey2018',
+        keyType: 'tendermint/PubKeyEd25519',
         passphrase: 'foobar'
       };
       const didDocument = await cosm.generate(nymOptions);
@@ -271,7 +271,7 @@ describe('methods/veres-one', () => {
 
     it('should generate unprotected ed25519 nym-based DID Doc', async () => {
       const nymOptions = {
-        keyType: 'Ed25519VerificationKey2018',
+        keyType: 'tendermint/PubKeyEd25519',
         passphrase: null
       };
       const didDocument = await cosm.generate(nymOptions);

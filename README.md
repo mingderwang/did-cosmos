@@ -30,7 +30,7 @@ const cosmosDriver = cosm.driver(options);
   * `invokeKey` - optionally pass in a Capability Invocation key, otherwise
     it will be generated.
   * `keyType` - the type of keys to generate.
-      Options: 'Ed25519VerificationKey2018' (default)
+      Options: 'tendermint/PubKeyEd25519' (default)
   * `hostname` - ledger node hostname override
   * `passphrase` - the passphrase to use to encrypt the private keys for
       nym-based DIDs. Set to `null` if the private keys should not be encrypted.
@@ -50,7 +50,7 @@ for example), you can specify the override directly:
 ```js
 // Generate a new DID Document
 const didDocument = await cosmosDriver.generate(
-  {didType: 'nym', keyType: 'Ed25519VerificationKey2018'}); // default
+  {didType: 'nym', keyType: 'tendermint/PubKeyEd25519'}); // default
 
 // Log the new didDocument to the console.
 console.log(JSON.stringify(didDocument, null, 2));
@@ -66,7 +66,7 @@ console.log(JSON.stringify(didDocument, null, 2));
   "authentication": [
     {
       "id": "did:cosm:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks#z6MkhVG8DoVv7C613wFJKeG3kz2Z6cR2EShQexgctTSjdmSg",
-      "type": "Ed25519VerificationKey2018",
+      "type": "tendermint/PubKeyEd25519",
       "controller": "did:cosm:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
       "publicKeyBase58": "4315dZFUmebXwSQbe5JCutUZH39ApZT3xwmh4BUiiYfJ"
     }
@@ -74,7 +74,7 @@ console.log(JSON.stringify(didDocument, null, 2));
   "capabilityInvocation": [
     {
       "id": "did:cosm:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks#z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
-      "type": "Ed25519VerificationKey2018",
+      "type": "tendermint/PubKeyEd25519",
       "controller": "did:cosm:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
       "publicKeyBase58": "DohfYhXrQqLbtBQB4sbQCytugpnSNkG5UUdVazg8uzyV"
     }
@@ -82,7 +82,7 @@ console.log(JSON.stringify(didDocument, null, 2));
   "capabilityDelegation": [
     {
       "id": "did:cosm:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks#z6MkhiwG4o9Etzy9DSNgbLY8rp6k73gKXtxrLBA7YdMxCAUZ",
-      "type": "Ed25519VerificationKey2018",
+      "type": "tendermint/PubKeyEd25519",
       "controller": "did:cosm:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
       "publicKeyBase58": "4GgDUYtoZTUg6wXyumaJ1iYkHUQU81iVeAFBiMPwGwhB"
     }
@@ -90,7 +90,7 @@ console.log(JSON.stringify(didDocument, null, 2));
   "assertionMethod": [
     {
       "id": "did:cosm:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks#z6MkqCDK1yGQxTbwDF7TkJhYeycPW35rPjAkMQGp8weGQPhz",
-      "type": "Ed25519VerificationKey2018",
+      "type": "tendermint/PubKeyEd25519",
       "controller": "did:cosm:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
       "publicKeyBase58": "BjxGRj1ycv7U6kGm4jjhot4PgTozyqvPfPMtJfgFVAvc"
     }
@@ -129,7 +129,7 @@ console.log(JSON.stringify(didDoc, null, 2));
   "authentication": [
     {
       "id": "did:cosm:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR#z6Mkf819vudPCgWPd1BX9objVMPz9XHDNwCwJb4R44vXbnd8",
-      "type": "Ed25519VerificationKey2018",
+      "type": "tendermint/PubKeyEd25519",
       "controller": "did:cosm:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
       "publicKeyBase58": "fk7LfNws91vWWLpUEdteFqzKx1My3xaca9VDnxWgZqk"
     }
@@ -137,7 +137,7 @@ console.log(JSON.stringify(didDoc, null, 2));
   "capabilityInvocation": [
     {
       "id": "did:cosm:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR#z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
-      "type": "Ed25519VerificationKey2018",
+      "type": "tendermint/PubKeyEd25519",
       "controller": "did:cosm:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
       "publicKeyBase58": "8NNydiyd3KjF46ERwY7rycTBvGKRh4J1BbnYvTYCK283"
     }
@@ -145,7 +145,7 @@ console.log(JSON.stringify(didDoc, null, 2));
   "capabilityDelegation": [
     {
       "id": "did:cosm:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR#z6Mkt5qQB4193KBYrHJjCUgS243LfCiHJLsrdRNPngGNngao",
-      "type": "Ed25519VerificationKey2018",
+      "type": "tendermint/PubKeyEd25519",
       "controller": "did:cosm:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
       "publicKeyBase58": "EdaMaokhhmh5jnU2WuibAxVLqdSRtTdVwQTTxQJMsToR"
     }
@@ -153,7 +153,7 @@ console.log(JSON.stringify(didDoc, null, 2));
   "assertionMethod": [
     {
       "id": "did:cosm:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR#z6MkkdPW8kjhZXRM73aTzyuw5fEd5CYAFmuAk8dJN91Y34XG",
-      "type": "Ed25519VerificationKey2018",
+      "type": "tendermint/PubKeyEd25519",
       "controller": "did:cosm:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
       "publicKeyBase58": "7B8TYWVGDyvszYjmKQx6EZgdFdGJqtep47iNXs3X7qjt"
     }
@@ -183,7 +183,7 @@ console.log(JSON.stringify(didDoc, null, 2));
   "authentication": [
     {
       "id": "did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-      "type": "Ed25519VerificationKey2018",
+      "type": "tendermint/PubKeyEd25519",
       "controller": "did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
       "publicKeyBase58": "QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW"
     }
@@ -191,7 +191,7 @@ console.log(JSON.stringify(didDoc, null, 2));
   "capabilityInvocation": [
     {
       "id": "did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-      "type": "Ed25519VerificationKey2018",
+      "type": "tendermint/PubKeyEd25519",
       "controller": "did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
       "publicKeyBase58": "QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW"
     }
@@ -199,7 +199,7 @@ console.log(JSON.stringify(didDoc, null, 2));
   "capabilityDelegation": [
     {
       "id": "did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-      "type": "Ed25519VerificationKey2018",
+      "type": "tendermint/PubKeyEd25519",
       "controller": "did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
       "publicKeyBase58": "QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW"
     }
@@ -207,7 +207,7 @@ console.log(JSON.stringify(didDoc, null, 2));
   "assertionMethod": [
     {
       "id": "did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-      "type": "Ed25519VerificationKey2018",
+      "type": "tendermint/PubKeyEd25519",
       "controller": "did:cosm:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
       "publicKeyBase58": "QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW"
     }

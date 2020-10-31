@@ -5,7 +5,7 @@
     "authentication": [
       {
         "id": "did:cosm:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#authn-1",
-        "type": "Ed25519VerificationKey2018",
+        "type": "tendermint/PubKeyEd25519",
         "controller": "did:cosm:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
         "publicKeyBase58": "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX"
       }
@@ -13,7 +13,7 @@
     "capabilityDelegation": [
       {
         "id": "did:cosm:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#delegate-1",
-        "type": "Ed25519VerificationKey2018",
+        "type": "tendermint/PubKeyEd25519",
         "controller": "did:cosm:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
         "publicKeyBase58": "83aqLqcwejjiQs33e5pdTty9B4beao8hzu7oNscosm4Peo"
       }
@@ -21,7 +21,7 @@
     "capabilityInvocation": [
       {
         "id": "did:cosm:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#invoke-1",
-        "type": "Ed25519VerificationKey2018",
+        "type": "tendermint/PubKeyEd25519",
         "controller": "did:cosm:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
         "publicKeyBase58": "EsnJk4JFMJcL6guK9bhRkQNspB3bCQaGZZ3NYeTn5rcG"
       }

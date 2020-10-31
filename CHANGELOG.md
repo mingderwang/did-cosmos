@@ -126,7 +126,7 @@ browser compatible release will be made soon.
 
 ### Changed
 - **BREAKING**: Replace "cryptographic suites" with flat verification methods
-  like Ed25519VerificationKey2018.
+  like tendermint/PubKeyEd25519.
 - **BREAKING**: Removed injector usage, removed related `cosm.use()` notation.
 - Extracted Cosmos specific code from `did-io` into this lib.
 

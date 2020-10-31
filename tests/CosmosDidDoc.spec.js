@@ -33,7 +33,7 @@ describe('CosmosDidDoc', () => {
 
   describe('init', () => {
     let didDoc;
-    const keyType = 'Ed25519VerificationKey2018';
+    const keyType = 'tendermint/PubKeyEd25519';
     const mode = 'dev';
 
     beforeEach(() => {
@@ -65,7 +65,7 @@ describe('CosmosDidDoc', () => {
   });
 
   describe('generateDid', () => {
-    const keyType = 'Ed25519VerificationKey2018';
+    const keyType = 'tendermint/PubKeyEd25519';
 
     it('should generate a uuid type did', async () => {
       const didType = 'uuid';
@@ -286,7 +286,7 @@ describe('CosmosDidDoc', () => {
 
         const {proofPurpose, key} = didDoc.findKey({id: keyId});
         expect(proofPurpose).to.equal('authentication');
-        expect(key.type).to.equal('Ed25519VerificationKey2018');
+        expect(key.type).to.equal('tendermint/PubKeyEd25519');
       });
 
       it('should return falsy values if that key id is not found', () => {
@@ -303,7 +303,7 @@ describe('CosmosDidDoc', () => {
 
         const newKey = await didDoc.rotateKey({id: keyId});
 
-        expect(newKey).to.have.property('type', 'Ed25519VerificationKey2018');
+        expect(newKey).to.have.property('type', 'tendermint/PubKeyEd25519');
         expect(newKey).to.have.property('controller', did);
         expect(newKey.id).to.not.equal(keyId);
 
@@ -376,7 +376,7 @@ describe('CosmosDidDoc', () => {
   });
 
   describe('toJSON', () => {
-    const keyType = 'Ed25519VerificationKey2018';
+    const keyType = 'tendermint/PubKeyEd25519';
     it('should only serialize the document, no other properties', () => {
       const didDoc = new CosmosDidDoc({keyType});
 
